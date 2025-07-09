@@ -34,10 +34,17 @@ if submit_button:
             # Prepare the data for the API
             api_payload = {"ad_text": ad_text, "image_url": image_url}
             
+            # --------------------- THE FIX IS HERE --------------------- #
+            # Use your correct Render URL
+            API_URL = "https://ethical-ad-predictor.onrender.com/predict" 
+            # ----------------------------------------------------------- #
+
             try:
                 # Call the FastAPI backend
-                API_URL = "https://your-api-name.onrender.com/predict" 
-                response = requests.post(API_URL, data=json.dumps(api_payload))
+                response = requests.post(API_URL, data=json.dumps(api_payload), timeout=60)
+                
+                # ... (the rest of your code is correct) ...
+
 
                 
                 if response.status_code == 200:

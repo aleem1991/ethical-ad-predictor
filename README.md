@@ -4,8 +4,7 @@
 
 This project is a full-stack data science application that predicts the performance of a digital ad and assesses its ethical risk, specifically looking for privacy-invasive ('creepy') and manipulative language.
 
-[**➡️ Live Demo Link**](https://your-streamlit-share-link.com) <!-- You can deploy your Streamlit app for free on Streamlit Community Cloud -->
-
+[**➡️ Live Demo Link**](https://ethical-ad-predictor-gtddttevsrm2e7rcxc2fbq.streamlit.app/)
 ## The Problem
 
 Companies spend billions on advertising, but ads perceived as unethical can damage brand trust and lead to poor performance. This project aims to build a tool that helps marketers craft more effective *and* more responsible ads by providing instant feedback on both predicted performance and ethical risks.
