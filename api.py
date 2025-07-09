@@ -1,38 +1,38 @@
-# api.py
+# In api.py
+
+# ... (keep all your imports) ...
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
 import json
-import re
-# Initialize FastAPI app
-app = FastAPI(title="Ethical Ad Predictor API", description="Predicts ad performance with an ethical lens.")
+import re  # <-- Make sure re is imported!
 
-# Define the input data model using Pydantic
-class AdInput(BaseModel):
-    ad_text: str
-    image_url: str = None # Optional image url
+# ... (keep your FastAPI app and BaseModel initialization) ...
 
 # Load the model and columns
 model = joblib.load('saved_model/model.joblib')
 with open('saved_model/model_columns.json', 'r') as f:
     model_columns = json.load(f)
 
-# Import a subset of feature engineering functions
-# In a real app, this file would be shared or imported from a common library
 from feature_engineering import count_keywords, get_sentiment, PRIVACY_KEYWORDS, URGENCY_KEYWORDS
+
 
 @app.post("/predict")
 def predict(ad_input: AdInput):
     """
     Predicts ad performance and returns ethical risk scores.
     """
+    # ------------------ START DEBUGGING ------------------
+    print("--- NEW REQUEST RECEIVED ---")
+    print(f"Received ad_text: {ad_input.ad_text}")
+    # ---------------------------------------------------
+
     # Create a DataFrame from the input
     data = {'ad_text': [ad_input.ad_text], 'image_url': [ad_input.image_url]}
     df = pd.DataFrame(data)
 
     # --- Feature Engineering on the fly ---
-    # We re-create the features for the single input row
     creepiness = count_keywords(ad_input.ad_text, PRIVACY_KEYWORDS)
     urgency = count_keywords(ad_input.ad_text, URGENCY_KEYWORDS)
     
@@ -42,11 +42,21 @@ def predict(ad_input: AdInput):
         'creepiness_score': creepiness,
         'urgency_score': urgency,
         'sentiment': get_sentiment(ad_input.ad_text),
-        'has_image_text': 1 if ad_input.image_url and 'img2' in ad_input.image_url else 0 # Mock image feature
+        'has_image_text': 1 if ad_input.image_url and 'img2' in ad_input.image_url else 0
     }
+    
+    # ------------------ MORE DEBUGGING ------------------
+    print(f"Calculated features: {features}")
+    # ----------------------------------------------------
 
     # Create a DataFrame with the correct column order
     live_df = pd.DataFrame([features], columns=model_columns)
+
+    # ------------------ FINAL DEBUGGING ------------------
+    print("DataFrame being sent to model for prediction:")
+    print(live_df.to_string())
+    print("---------------------------------------------")
+    # ----------------------------------------------------
 
     # Make prediction
     prediction = model.predict(live_df)[0]
@@ -58,8 +68,3 @@ def predict(ad_input: AdInput):
             "urgency_score": urgency
         }
     }
-
-# Health check endpoint
-@app.get("/")
-def read_root():
-    return {"status": "API is running"}
