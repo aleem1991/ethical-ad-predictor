@@ -36,7 +36,9 @@ if submit_button:
             
             try:
                 # Call the FastAPI backend
-                response = requests.post("http://127.0.0.1:8000/predict", data=json.dumps(api_payload))
+                API_URL = "https://your-api-name.onrender.com/predict" 
+                response = requests.post(API_URL, data=json.dumps(api_payload))
+
                 
                 if response.status_code == 200:
                     result = response.json()
