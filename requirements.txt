@@ -1,0 +1,17 @@
+# Data & Modeling
+pandas
+scikit-learn
+xgboost
+shap
+
+# API & Web App
+fastapi
+uvicorn[standard]
+streamlit
+requests
+
+# NLP & Image Processing
+vaderSentiment
+opencv-python
+pytesseract
+Pillow
