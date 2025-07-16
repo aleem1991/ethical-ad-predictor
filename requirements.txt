@@ -1,17 +1,13 @@
-# Data & Modeling
-pandas
-scikit-learn
-xgboost
-shap
-
-# API & Web App
+# requirements.txt - FINAL, COMPLETE LIST
 fastapi
 uvicorn[standard]
 streamlit
 requests
-
-# NLP & Image Processing
+pandas
+scikit-learn
+xgboost
+# shap # Not strictly needed by the live API, can be removed to speed up build
 vaderSentiment
-opencv-python
-pytesseract
-Pillow
+# opencv-python  # Very large library, not used by the live API/app currently
+# pytesseract    # Not used by the live API/app currently
+Pillow         # A smaller image library, sometimes a dependency
