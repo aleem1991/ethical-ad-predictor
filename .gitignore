@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env
+
+# Node / React
+frontend-v2/node_modules/
+frontend-v2/dist/
+frontend-v2/.npm/
+
+# Testing
+.pytest_cache/
+
+# OS generated files
+.DS_Store
+Thumbs.db

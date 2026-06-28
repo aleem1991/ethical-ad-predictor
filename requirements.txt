@@ -6,8 +6,10 @@ requests
 pandas
 scikit-learn
 xgboost
-# shap # Not strictly needed by the live API, can be removed to speed up build
+shap
+groq
 vaderSentiment
 # opencv-python  # Very large library, not used by the live API/app currently
 # pytesseract    # Not used by the live API/app currently
 Pillow         # A smaller image library, sometimes a dependency
+sentence-transformers
